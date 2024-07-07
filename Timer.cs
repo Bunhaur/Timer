@@ -1,21 +1,14 @@
+using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-
-[RequireComponent(typeof(TextMeshProUGUI))]
 
 public class Timer : MonoBehaviour
 {
-    private TextMeshProUGUI _timerText;
+    public Action<int> TimeIsChanged;
     private Coroutine _timer;
-    private bool _isRunning = false;
     private int _currentTime = 0;
+    private bool _isRunning = false;
     private float _delay = 1;
-
-    private void Awake()
-    {
-        _timerText = GetComponent<TextMeshProUGUI>();
-    }
 
     private void Update()
     {
@@ -40,9 +33,9 @@ public class Timer : MonoBehaviour
     {
         while (true)
         {
-            _timerText.text = _currentTime.ToString();
-            _currentTime++;
+            TimeIsChanged?.Invoke(_currentTime);
             yield return new WaitForSeconds(delay);
+            _currentTime++;
         }
     }
 }
