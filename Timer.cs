@@ -2,13 +2,20 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
+
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _timerText;
+    private TextMeshProUGUI _timerText;
     private Coroutine _timer;
     private bool _isRunning = false;
     private int _currentTime = 0;
     private float _delay = 1;
+
+    private void Awake()
+    {
+        _timerText = GetComponent<TextMeshProUGUI>();
+    }
 
     private void Update()
     {
