@@ -19,6 +19,7 @@ public class Timer : MonoBehaviour
         else if (Input.GetMouseButtonDown(0) && _timer != null)
         {
             StopCoroutine(_timer);
+            _timer = null;
         }
     }
 
