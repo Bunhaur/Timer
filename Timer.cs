@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public Action<int> TimeIsChanged;
     private Coroutine _timer;
     private int _currentTime = 0;
-    private bool _isRunning = false;
     private float _delay = 1;
+   
+    public Action<int> TimeIsChanged;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !_isRunning)
+        if (Input.GetMouseButtonDown(0) && _timer == null)
         {
-            _isRunning = true;
             StartTimer();
         }
-        else if (Input.GetMouseButtonDown(0) && _isRunning)
+        else if (Input.GetMouseButtonDown(0) && _timer != null)
         {
-            _isRunning = false;
             StopCoroutine(_timer);
         }
     }
@@ -31,10 +29,12 @@ public class Timer : MonoBehaviour
 
     private IEnumerator TimerWork(float delay)
     {
+        var wait = new WaitForSeconds(delay);
+    
         while (true)
         {
             TimeIsChanged?.Invoke(_currentTime);
-            yield return new WaitForSeconds(delay);
+            yield return wait;
             _currentTime++;
         }
     }
