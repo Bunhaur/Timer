@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShowTimer : MonoBehaviour
 {
     [SerializeField] private Timer _timer;
+    
     private TextMeshProUGUI _timerText;
 
     private void Awake()
